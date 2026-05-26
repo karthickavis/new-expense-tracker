@@ -1,32 +1,35 @@
 # Expense Tracker
 
-A modern Expense Tracker app built using React and Tailwind css.
+A modern Expense Tracker app built using React and Tailwind CSS.
+
+I built this app to track my daily expenses and improve my frontend development skills.
 
 ## Features
 
-- Responsive Navbar 
+- Responsive Navbar
 - Dark / Light Mode
-- React Router setup
+- Mobile Hamburger Menu
+- React Router Setup
 
 ## Tech Stack
 
 - React
-- TailwindCss
+- Tailwind CSS
 - Lucide React Icons
-- React Router Dom
-- React-Toastify
+- React Router DOM
+- React Toastify
 
 ## What I Learned
 
 - Nested Routing
-- React Router Dom
-- Dark Mode using Tailwindcss
+- React Router DOM
+- Dark Mode using Tailwind CSS
 - Responsive Design
-- Navbar & Mobile Menu 
+- Navbar & Mobile Menu
 
 ## Future Improvements
 
 - Add Expense Form
-- Handle State Management
+- State Management
 - Protected Routes
-- charts & Analytics
+- Charts & Analytics
