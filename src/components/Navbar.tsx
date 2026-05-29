@@ -6,6 +6,7 @@ import {
   Home,
   Landmark,
   Wallet,
+  Plus,
 } from "lucide-react";
 
 import ThemeToggle from "./ThemeToggle";
@@ -50,6 +51,10 @@ const Navbar = () => {
             <Home size={20} />
             Home
           </NavLink>
+           <NavLink to="/addexpense" className={navLinkStyle}>
+            <Plus size={20} />
+            Add Expense
+          </NavLink>
 
           <NavLink to="/expenses" className={navLinkStyle}>
             <Landmark size={20} />
@@ -92,6 +97,14 @@ const Navbar = () => {
             >
               <Home size={20} />
               Home
+            </NavLink>
+             <NavLink
+              to="/addexpense"
+              className={navLinkStyle}
+              onClick={() => setOpen(false)}
+            >
+              <Plus size={20} />
+              Add Expense
             </NavLink>
 
             <NavLink

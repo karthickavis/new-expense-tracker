@@ -5,6 +5,10 @@ import RootLayout from './layout/RootLayout'
 import Home from './pages/Home'
 import Expenses from './pages/Expenses'
 import NotFound from './pages/NotFound'
+import { ExpenseProvider } from './context/ExpenseProvider'
+import { Toaster } from 'react-hot-toast'
+import AddExpense from './components/AddExpense'
+
 
 const router=createBrowserRouter([
   {
@@ -20,6 +24,10 @@ const router=createBrowserRouter([
         element:<Expenses/>,
       },
       {
+        path:"addexpense",
+        element:<AddExpense/>
+      },
+      {
         path:"*",
         element:<NotFound/>
       }
@@ -30,7 +38,11 @@ const router=createBrowserRouter([
 function App() {
  
     return (
-    <RouterProvider router={router}/>
+      <ExpenseProvider>
+        <Toaster position="top-right"/>
+ <RouterProvider router={router}/>
+      </ExpenseProvider>
+   
   )
 }
 
