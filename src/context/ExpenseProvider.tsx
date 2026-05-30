@@ -2,7 +2,7 @@ import {useReducer,useEffect} from "react";
 import type { ReactNode } from "react";
 import {expenseReducer} from '../reducer/ExpenseReducer';
 // import { ADD_EXPENSE,DELETE_EXPENSE } from "../types/expenseTypes";
-import { ExpenseContext,AddExpenseContext,DeleteExpenseContext } from "./ExpenseContext";
+import { ExpenseContext,AddExpenseContext,DeleteExpenseContext,EditExpenseContext } from "./ExpenseContext";
 import type { ExpenseData,StateData} from "../types/expenseTypes";
 
 const storedExpenses=localStorage.getItem("expenses");
@@ -35,11 +35,21 @@ export const ExpenseProvider=({children}:ExpenseProviderProps)=>{
         });
       };
 
+      const editExpense=(expense:ExpenseData)=>{
+        dispatch({
+            type :"EDIT_EXPENSE",
+            payload:expense,
+        })
+      }
+
       return(
         <ExpenseContext.Provider value={state}>
            <AddExpenseContext.Provider value={addExpense}>
             <DeleteExpenseContext.Provider value={deleteExpense}>
-                {children}
+                <EditExpenseContext.Provider value={editExpense}>
+                   {children}
+                </EditExpenseContext.Provider>
+              
             </DeleteExpenseContext.Provider>
            </AddExpenseContext.Provider>
         </ExpenseContext.Provider>

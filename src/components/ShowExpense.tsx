@@ -1,8 +1,13 @@
-import React, { useContext } from "react";
-import { ExpenseContext } from "../context/ExpenseContext";
-
+import { useContext,useState } from "react";
+import { ExpenseContext,DeleteExpenseContext,EditExpenseContext} from "../context/ExpenseContext";
+import { Pencil, Trash2 } from "lucide-react";
+import  type { ExpenseData } from "../types/expenseTypes";
 const ShowExpense = () => {
   const expenseState = useContext(ExpenseContext);
+  const deleteExpense=useContext(DeleteExpenseContext)
+  const editExpense=useContext(EditExpenseContext)
+  const [isModalOpen,setIsModalOpen]=useState(false)
+  const [selectedExpense,setSelectedExpense]=useState<ExpenseData |null>(null)
 
   return (
     <div className="w-full max-w-6xl mx-auto px-4 py-6">
@@ -25,6 +30,7 @@ const ShowExpense = () => {
               <th className="text-left px-4 py-3 font-semibold">Amount</th>
               <th className="text-left px-4 py-3 font-semibold">Category</th>
               <th className="text-left px-4 py-3 font-semibold">Date</th>
+            <th className="text-left px-4 py-3 font-semibold">Actions</th>
             </tr>
           </thead>
 
@@ -74,12 +80,109 @@ const ShowExpense = () => {
                   <td className="px-4 py-4 text-gray-600 dark:text-gray-400">
                     {new Date(item.date).toLocaleDateString()}
                   </td>
+                  <td className="px-4 py-4">
+  <div className="flex items-center gap-3">
+    <button onClick={()=>{setSelectedExpense(item)
+     setIsModalOpen(true) 
+   }}
+      className="p-2 rounded-lg hover:bg-blue-100 dark:hover:bg-blue-900/30 transition"
+    >
+      <Pencil
+        size={20}
+        className="text-blue-600 dark:text-blue-400"
+      />
+    </button>
+
+    <button
+      onClick={() => deleteExpense?.(item.id)}
+      className="p-2 rounded-lg hover:bg-red-100 dark:hover:bg-red-900/30 transition"
+    >
+      <Trash2
+        size={20}
+        className="text-red-600 dark:text-red-400"
+      />
+    </button>
+  </div>
+</td>
                 </tr>
               ))
             )}
           </tbody>
         </table>
       </div>
+      {isModalOpen && selectedExpense && (
+  <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+    <div className="bg-white dark:bg-zinc-900 p-6 rounded-xl w-full max-w-md">
+      <h2 className="text-xl font-bold mb-4">
+        Edit Expense
+      </h2>
+
+      <input
+        className="w-full border p-2 rounded mb-3"
+        value={selectedExpense.title}
+        onChange={(e) =>
+          setSelectedExpense({
+            ...selectedExpense,
+            title: e.target.value,
+          })
+        }
+      />
+
+      <input
+        className="w-full border p-2 rounded mb-3"
+        type="number"
+        value={selectedExpense.amount}
+        onChange={(e) =>
+          setSelectedExpense({
+            ...selectedExpense,
+            amount: Number(e.target.value),
+          })
+        }
+      />
+       <input
+        className="w-full border p-2 rounded mb-3"
+        type="text"
+        value={selectedExpense.category}
+        onChange={(e) =>
+          setSelectedExpense({
+            ...selectedExpense,
+            category:(e.target.value),
+          })
+        }
+      />
+       <input
+        className="w-full border p-2 rounded mb-3"
+        type="date"
+        value={selectedExpense.date}
+        onChange={(e) =>
+          setSelectedExpense({
+            ...selectedExpense,
+            date:(e.target.value),
+          })
+        }
+      />
+
+      <div className="flex justify-end gap-3">
+        <button
+          onClick={() => setIsModalOpen(false)}
+          className="px-4 py-2 rounded bg-gray-300"
+        >
+          Cancel
+        </button>
+
+        <button
+          onClick={() => {
+            editExpense?.(selectedExpense);
+            setIsModalOpen(false);
+          }}
+          className="px-4 py-2 rounded bg-blue-600 text-white"
+        >
+          Update
+        </button>
+      </div>
+    </div>
+  </div>
+)}
     </div>
   );
 };

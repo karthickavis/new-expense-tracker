@@ -5,3 +5,5 @@ export const ExpenseContext = createContext<StateData|null>(null);
 export const AddExpenseContext = createContext<((expense:ExpenseData)=>void)|null>(null);
 
 export const DeleteExpenseContext = createContext<((id:number)=>void)|null>(null);
+
+export const EditExpenseContext=createContext<((expense:ExpenseData)=>void)|null>(null)
